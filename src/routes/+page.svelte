@@ -1,7 +1,9 @@
-<script>
+<script lang="ts">
+	import { space } from 'postcss/lib/list';
+
 	let nameA = '';
 	let nameB = '';
-	let result;
+	let result: number;
 
 	const countOccurence = (arrayOfString) => {
 		let array = [];
@@ -14,7 +16,7 @@
 		return array;
 	};
 
-	const lastDigitOnly = (array) => {
+	const lastDigitOnly = (array: Array<number>) => {
 		array = array.map((e) => {
 			return e % 10;
 		});
@@ -22,7 +24,7 @@
 		return array;
 	};
 
-	const handleClick = (male, female) => {
+	const handleClick = (male: String, female: String) => {
 		let arrayOfString = [...(male.toLowerCase() + female.toLowerCase())].filter((e) => {
 			return /^[A-Za-z]+$/.test(e);
 		});
@@ -38,20 +40,44 @@
 			charOccurence = lastDigitOnly(array);
 		}
 
+		console.log(parseInt(charOccurence.join('')));
 		return (result = parseInt(charOccurence.join('')));
 	};
 </script>
 
 <div class="grid h-screen w-screen place-items-center">
 	<div
-		class="grid grid-cols-1 gap-4 border-2 border-gray-500 bg-gradient-to-br p-12 text-center font-serif"
+		class="grid grid-cols-1 gap-4 border-2 border-sea-pink-500 bg-gradient-to-br p-12 text-center font-serif"
 	>
-		<label class="text-lg">Nama Kamu</label>
-		<label class="text-lg">Nama Pasanganmu</label>
-		<input type="text" class="rounded border-2 border-gray-500" placeholder="Contoh: Hendra" />
-		<input type="text" class="rounded border-2 border-gray-500" placeholder="Contoh: Selly" />
-		<button on:click={handleClick(nameA, nameB)} class="col-span-2 bg-gray-500 p-2 text-white">
+		<label for="your-name" class="text-2xl font-extrabold">Nama Kamu</label>
+		<label for="your-partner-name" class="text-2xl font-extrabold">Nama Pasanganmu</label>
+		<input
+			bind:value={nameA}
+			id="your-name"
+			type="text"
+			class="rounded border-2 border-sea-pink-500 font-medium"
+			placeholder="Contoh: Hendra"
+		/>
+		<input
+			bind:value={nameB}
+			id="your-partner-name"
+			type="text"
+			class="rounded border-2 border-sea-pink-500 font-medium"
+			placeholder="Contoh: Selly"
+		/>
+		<button
+			on:click={() => handleClick(nameA, nameB)}
+			class="col-span-2 bg-sea-pink-500 p-2 text-white"
+		>
 			Hitung
 		</button>
+
+		<div class="col-span-2 grid place-items-center">
+			{#if result}
+				<div class="aspect-square rounded-[100%] bg-sea-pink-500 p-8 text-center font-extrabold">
+					{result}%
+				</div>
+			{/if}
+		</div>
 	</div>
 </div>
