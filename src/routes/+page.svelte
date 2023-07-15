@@ -43,23 +43,15 @@
 </script>
 
 <div class="grid h-screen w-screen place-items-center">
-	<label>
-		Cowok
-		<input bind:value={nameA} />
-	</label>
-
-	<label>
-		Cewek
-		<input bind:value={nameB} />
-	</label>
+	<div
+		class="grid grid-cols-1 gap-4 border-2 border-gray-500 bg-gradient-to-br p-12 text-center font-serif"
+	>
+		<label class="text-lg">Nama Kamu</label>
+		<label class="text-lg">Nama Pasanganmu</label>
+		<input type="text" class="rounded border-2 border-gray-500" placeholder="Contoh: Hendra" />
+		<input type="text" class="rounded border-2 border-gray-500" placeholder="Contoh: Selly" />
+		<button on:click={handleClick(nameA, nameB)} class="col-span-2 bg-gray-500 p-2 text-white">
+			Hitung
+		</button>
+	</div>
 </div>
-
-<button on:click={handleClick(nameA, nameB)}>Hitung</button>
-
-<span>
-	{#if result}
-		{result}
-	{:else}
-		Tidak ada apa apa
-	{/if}
-</span>
